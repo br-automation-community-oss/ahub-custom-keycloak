@@ -68,6 +68,10 @@
   <html<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
     <head>
       <@document.kw script=script />
+      <#-- Conditionally add the CSP meta tag if DOCKER_COMPOSE is true -->
+      <#if env.DOCKER_COMPOSE?? && env.DOCKER_COMPOSE == "true">
+        <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' http://localhost:5173" />
+      </#if>
     </head>
     <@body.kw>
       <@container.kw>
